@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace first_laba
+namespace vtoraya_laba
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml

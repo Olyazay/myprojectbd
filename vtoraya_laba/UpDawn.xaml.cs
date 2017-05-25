@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace first_laba
+namespace vtoraya_laba
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для UpDawn.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UpDawn : UserControl
     {
-        public MainWindow()
+        public UpDawn()
         {
             InitializeComponent();
         }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace first_laba.Properties
+namespace vtoraya_laba.Properties
 {
 
 

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace first_laba
+namespace vtoraya_laba
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -22,7 +22,14 @@ namespace first_laba
     {
         public MainWindow()
         {
+            DataContext = new BindingViewModel();
+            
             InitializeComponent();
+            //UpDawn mycontrol = new UpDawn();
+            //mycontrol.SetValue(Grid.RowProperty, 4);
+            //mycontrol.SetValue(Grid.ColumnProperty, 3);
+                 
+            //CharIph.Children.Add(mycontrol);
         }
     }
 }
