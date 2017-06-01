@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
-using System.Runtime.CompilerServices; 
+using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
 
 namespace vtoraya_laba
 {
@@ -21,7 +22,17 @@ namespace vtoraya_laba
             set
             {
                 _name = value;
-                OnPropertyChange("Name");                 
+                OnPropertyChange("Name");
+            }
+        }
+        private Int64 _summa; 
+        public Int64 Summa
+        {
+            get { return _summa; }
+            set
+            {
+                _summa = value;
+                OnPropertyChange("Summa"); 
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -48,38 +59,54 @@ namespace vtoraya_laba
         {
             Name = (String)parameter; 
         }
-        private Int64 _oneIpf; 
-        public Int64 OneIpf
+        public ObservableCollection<Phone> Phones { get; set; }
+        public BindingViewModel()
         {
-            get { return _oneIpf;}
-            set
+            MyCommand = new RelayRadioButton(executemethod, canexecutemethod);
+            Phones = new ObservableCollection<Phone>();
+            var phones = Phone.GetPhoneFromDataBase();
+            //{
+            //    new Phone(1,"Iphone 7", 54000,0),
+            //    new Phone(2,"Samsung S8", 64000,0),
+            //    new Phone(3,"Meizu mx", 42000,0), 
+            //    new Phone(4,"Xiaomi",8000,0)
+            //};
+            foreach (var p in phones)
             {
-                _oneIpf = value;
-                OnPropertyChange("OneIpf");     
+                Phones.Add(new Phone()
+                {
+                    Number = p.Number,
+                    NamePhone = p.NamePhone,
+                    OneIpf = p.OneIpf,
+                    KolvoIpf = p.KolvoIpf,
+                    PriceIpf = p.PriceIpf,
+                    Index = p.Index
+                }                   
+                    );
+                    
             }
 
         }
-        private Int64 _priceIpf;
-        public Int64 PriceIpf
+        private relaymycontrol _deletephone;
+        public relaymycontrol DeletePhone
         {
-            get { return _priceIpf; }
-            set
+            get
             {
-                _priceIpf = value;
-                OnPropertyChange("PriceIpf");
-            }
-        }
-        private Int64 _kolvoIpf;
-        public Int64 KolvoIpf
-        {
-            get { return _kolvoIpf; }
-            set
-            {
-                _kolvoIpf = value;
-                PriceIpf = _kolvoIpf *_oneIpf ;
-                OnPropertyChange("KolvoIpf");
-                OnPropertyChange("PriceIpf");
-                OnPropertyChange("OneIpf");
+                return _deletephone ?? (_deletephone = new relaymycontrol(obj =>
+                {
+                    Phone phone = obj as Phone; 
+                    if(phone!=null)
+                    {
+                        Phones.Remove(phone);
+                        for (int i = phone.Index; i < Phones.Count; i++)
+                        {
+                            Phones[i].Number = Phones[i].Index;
+                            Phones[i].Index = Phones[i].Index - 1;
+                        }
+                        Summa -= phone.PriceIpf;
+                    }
+            },
+               (obj) => Phones.Count > 0));
             }
         }
         private relaymycontrol _addIpf;
@@ -89,7 +116,12 @@ namespace vtoraya_laba
             {
                 return _addIpf ?? (_addIpf = new relaymycontrol(obj =>
                 {
-                    KolvoIpf++;
+                    Phone phone = obj as Phone;
+                    if (phone!=null)
+                    {
+                        Phones[phone.Index].KolvoIpf++;
+                        Summa += phone.OneIpf;
+                    }
                 }
                 ));
             }
@@ -99,34 +131,17 @@ namespace vtoraya_laba
         {
             get
             {
-                return _reduceIpf ?? (_reduceIpf = new relaymycontrol(obj=>
+                return _reduceIpf ?? (_reduceIpf = new relaymycontrol(obj =>
                 {
-                    if (KolvoIpf>0)
+                    Phone phone = obj as Phone;
+                    if (phone != null)
                     {
-                        KolvoIpf--;
+                        Phones[phone.Index].KolvoIpf--;
+                        Summa -= phone.OneIpf;
                     }
                 }
                 ));
             }
-        }
-        private Int64 _allprductprice; 
-        public Int64 Allproductprice
-        {
-            get { return _allprductprice; }
-            set
-            {
-                _allprductprice = value;
-
-                OnPropertyChange("Allproductprice"); 
-            }
-        }
-        public BindingViewModel()
-        {
-            MyCommand = new RelayRadioButton(executemethod, canexecutemethod);
-            _kolvoIpf = 2;
-            _oneIpf = 49000;
-            _allprductprice = _oneIpf * _kolvoIpf;
-            _priceIpf = _oneIpf * _kolvoIpf;
         }
     }
 }

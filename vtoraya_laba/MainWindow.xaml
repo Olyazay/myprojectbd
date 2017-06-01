@@ -4,78 +4,104 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:vtoraya_laba"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="725">
+        mc:Ignorable="d" 
+        Title="MainWindow" >
     <Window.DataContext>
         <local:BindingViewModel></local:BindingViewModel>
     </Window.DataContext>
     <Window.Resources>
-        <local:BindingViewModel x:Key="Primer"></local:BindingViewModel>
-        <local:BindingViewModel x:Key="Dva"></local:BindingViewModel>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resource.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
-    <StackPanel Orientation="Vertical" Margin="20,0,0,0" Name="Iphone7">
-        <TextBlock FontFamily="Comic Sans MS" FontSize="30" Height="50">Ваша корзина</TextBlock>
-        <TextBlock FontFamily="Comic Sans MS" FontSize="18" Height="50"><Run Text="Заказанные товары"/></TextBlock>
-        <Grid Height="50" Name="CharIph">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="2.1*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="№"/>
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="Название"/>
-            <TextBlock Grid.Row="0" Grid.Column="2" Text="Цена"/>
-            <TextBlock Grid.Row="0" Grid.Column="3" Text="Кол-во"/>
-            <TextBlock Grid.Row="0" Grid.Column="4" Text="Стоимость" HorizontalAlignment="Right"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="1" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="iPhone 7" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding OneIpf, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" Name="PRice" Text="{Binding PriceIpf}" Margin="90.4,9,0.4,8.6"/>
-            <Button Grid.Row="1" Grid.Column="5" Content="Удалить" Width="80" HorizontalAlignment="Right" />
-            <local:UpDawn Grid.Column="3" Grid.Row="1" ></local:UpDawn>
-        </Grid>
-        <Border BorderThickness="1" BorderBrush="Black" Margin="0,15,0,0"/>
-        <Grid Margin="0,15,0,0" Height="30" Width="500" HorizontalAlignment="Left">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" FontFamily="Comic Sans MS" FontSize="20"> ИТОГО</TextBlock>
-            <TextBlock Grid.Column="1" HorizontalAlignment="Right" FontFamily="Comic Sans MS" FontSize="20" Text="{Binding Allproductprice, Source={StaticResource Dva}}"></TextBlock>
-        </Grid>
-        <Grid Margin="0,25,199,0" Height="140" Width="500" HorizontalAlignment="Left">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" FontFamily="Comic Sans MS" FontSize="18"><Run Text="Доставка"/></TextBlock>
-            <TextBlock FontFamily="Comic Sans MS" FontSize="18" Grid.Row="0" Grid.Column="1"><Run Text="Оплата"/></TextBlock>
-            <Button Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="Возврат в магазин"/>
-            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="Оформление заказа"/>
-            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" DataContext="{Binding Source={StaticResource Primer}}">
-                <RadioButton Name="Cur" Content="Курьером" Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=Cur,Path=Content}"></RadioButton>
-                <RadioButton Name="Self" Content="Самовызов" Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=Self,Path=Content}"></RadioButton>
-                <RadioButton Name="Poch" Content="Почтомат" Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=Poch,Path=Content}"></RadioButton>
-                <TextBlock Name="Delivery" Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+    <StackPanel Orientation="Vertical" Name="Iphone7" Background="{StaticResource MyFone}">
+        <StackPanel Margin="20,0,0,0">
+            <TextBlock FontSize="30" Style="{StaticResource TextBlockStyle}" Height="50">Ваша корзина</TextBlock>
+            <TextBlock FontSize="25" Height="50" Style="{StaticResource SmallTextBlockElement}">
+            Заказанные товары
+            </TextBlock>
+            <Grid Height="20" Name="CharIph">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Style="{StaticResource SmallTextBlockElement}" Grid.Column="0" Text="№"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource SmallTextBlockElement}" Text="Название"/>
+                <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource SmallTextBlockElement}" Text="Цена"/>
+                <TextBlock Grid.Row="0" Grid.Column="3" Style="{StaticResource SmallTextBlockElement}" Text="Кол-во"/>
+                <TextBlock Grid.Row="0" Grid.Column="4" Style="{StaticResource SmallTextBlockElement}" Text="Стоимость" HorizontalAlignment="Right"/>
+                <StackPanel Grid.Row="1" Grid.ColumnSpan="6" Orientation="Horizontal">
+                </StackPanel>
+            </Grid>
+            <StackPanel>
+                <ItemsControl ItemsSource="{Binding Phones}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Style="{StaticResource SmallTextBlockElement}" Text="{Binding Number}"></TextBlock>
+                                <TextBlock Grid.Column="1" Style="{StaticResource SmallTextBlockElement}" Text="{Binding NamePhone}"></TextBlock>
+                                <TextBlock Grid.Column="2" Style="{StaticResource SmallTextBlockElement}" Text="{Binding OneIpf}"></TextBlock>
+                                <local:UpDawn Grid.Column="3" Height="40" HorizontalAlignment="Left"></local:UpDawn>
+                                <TextBlock Grid.Column="4" Style="{StaticResource SmallTextBlockElement}" HorizontalAlignment="Right" Text="{Binding Path=PriceIpf}"></TextBlock>
+                                <Button Grid.Column="5" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Center" Height="35" Command="{Binding DataContext.DeletePhone, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding }">Удалить</Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
-            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical" DataContext="{Binding Source={StaticResource Dva}}">
-                <RadioButton Name="Cash" Content="Наличными" Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=Cash,Path=Content}"></RadioButton>
-                <RadioButton Name="Card" Content="Банковской картой" Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=Card,Path=Content}"></RadioButton>
-                <RadioButton Name="Virtual" Content="Электронными деньгами" Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=Virtual,Path=Content}"></RadioButton>
-                <TextBlock Name="Pay" Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
-            </StackPanel>
-        </Grid>
+            <Border BorderThickness="2" BorderBrush="AliceBlue" Margin="0,15,0,0"/>
+            <Grid Margin="0,15,0,0" Height="30" Width="500" HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" FontSize="20" Style="{StaticResource TextBlockStyle}"> ИТОГО</TextBlock>
+                <TextBlock Grid.Column="1" FontSize="20" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Right" Text="{Binding Path=Summa}"></TextBlock>
+            </Grid>
+            <Grid ScrollViewer.CanContentScroll="True" Margin="0,25,199,0" Height="140" Width="500" HorizontalAlignment="Left">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="1.2*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="20" Style="{StaticResource TextBlockStyle}" >Доставка</TextBlock>
+                <TextBlock Style="{StaticResource TextBlockStyle}" FontFamily="20" Grid.Row="0" Grid.Column="1">Оплата</TextBlock>
+                <Button Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Style="{StaticResource ButtonStyle}" VerticalAlignment="Bottom" Content="Возврат в магазин"/>
+                <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Style="{StaticResource ButtonStyle}" Content="Оформление заказа"/>
+                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" DataContext="{Binding Source={StaticResource Primer}}">
+                    <RadioButton Style="{StaticResource RadioButtonStyle}" GroupName="delivery" Name="Cur" Content="Курьером" Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=Cur,Path=Content}"></RadioButton>
+                    <RadioButton Style="{StaticResource RadioButtonStyle}" GroupName="delivery" Name="Self" Content="Самовызов" Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=Self,Path=Content}"></RadioButton>
+                    <RadioButton Style="{StaticResource RadioButtonStyle}" GroupName="delivery" Name="Poch" Content="Почтомат" Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=Poch,Path=Content}"></RadioButton>
+                    <TextBlock Name="Delivery" Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical" DataContext="{Binding Source={StaticResource Dva}}">
+                    <RadioButton Style="{StaticResource RadioButtonStyle}" GroupName="payment" Name="Cash" Content="Наличными" Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=Cash,Path=Content}"></RadioButton>
+                    <RadioButton Style="{StaticResource RadioButtonStyle}" GroupName="payment" Name="Card" Content="Банковской картой" Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=Card,Path=Content}"></RadioButton>
+                    <RadioButton Style="{StaticResource RadioButtonStyle}" GroupName="payment" Name="Virtual" Content="Электронными деньгами" Command="{Binding Path=MyCommand}" CommandParameter="{Binding ElementName=Virtual,Path=Content}"></RadioButton>
+                    <TextBlock Name="Pay" Text="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
     </StackPanel>
 </Window>

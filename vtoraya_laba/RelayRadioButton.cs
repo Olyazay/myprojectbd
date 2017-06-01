@@ -18,7 +18,6 @@ namespace vtoraya_laba
             _executemethod = executemethod;
             _canexecutemethod = canexecutemethod;
         }
-
         public RelayRadioButton(Action<object> addNewIpf)
         {
             this.addNewIpf = addNewIpf;

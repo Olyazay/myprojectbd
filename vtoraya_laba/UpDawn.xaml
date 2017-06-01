@@ -6,9 +6,10 @@
              xmlns:local="clr-namespace:vtoraya_laba"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="50">
-    <!--<UserControl.DataContext>
-        <local:BindingViewModel></local:BindingViewModel>
-    </UserControl.DataContext>-->
+    <!--<Window.Resource>
+        <local:NorEmtyValidationRules x:Key="sos"></local:NorEmtyValidationRules>
+        <local:Phone x:Key="kol"></local:Phone>
+    </Window.Resource>-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -18,14 +19,19 @@
             <ColumnDefinition Width="1.5*"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBox Grid.RowSpan="2" Grid.Column="0" Grid.Row="0" Text="{Binding KolvoIpf, UpdateSourceTrigger=PropertyChanged}" FontSize="20">
+        <TextBox Grid.RowSpan="2" Grid.Column="0" Grid.Row="0" FontSize="20" Background="AliceBlue">
+            <Binding Path="KolvoIpf" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged" NotifyOnValidationError="True">
+                <Binding.ValidationRules>
+                    <local:NorEmtyValidationRules></local:NorEmtyValidationRules>
+                </Binding.ValidationRules>
+            </Binding>
         </TextBox>
-        <Button Grid.Row="0" Grid.Column="1" Command="{Binding AddIpf, UpdateSourceTrigger=PropertyChanged}">
+        <Button Grid.Row="0" Grid.Column="1" Command="{Binding DataContext.AddIpf, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding }" Background="AliceBlue">
             <TextBlock FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Up1">
                 ▲
             </TextBlock>
         </Button>
-        <Button Grid.Row="1" Grid.Column="1" Command="{Binding ReduceIpf, UpdateSourceTrigger=PropertyChanged}">
+        <Button Grid.Row="1" Grid.Column="1" Command="{Binding DataContext.ReduceIpf, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding }" Background="AliceBlue">
             <TextBlock FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Height="38">
                 ▼
             </TextBlock>
